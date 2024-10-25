@@ -22,16 +22,95 @@
 
 namespace RakNet.Tests;
 
+[TestFixture]
 public class RakNetDescriptorTests
 {
-    [SetUp]
-    public void Setup()
+    [Test]
+    [Description("Test adding elements to the descriptor using the '+=' operator")]
+    public void AddElementUsingOperator()
     {
+        var descriptor = new RakNetDescriptor();
+        descriptor += "Hello";
+        
+        Assert.That(descriptor.ToString(), Is.EqualTo("Hello;"));
     }
 
     [Test]
-    public void Test1()
+    [Description("Test adding elements using SetElement to non-existing and specific indexes")]
+    public void SetElementAtSpecificIndex()
     {
-        Assert.Pass();
+        var descriptor = new RakNetDescriptor();
+        descriptor.SetElement(0, "First");
+        descriptor.SetElement(2, "Third");
+        descriptor.SetElement(1, "Second");
+        
+        Assert.That(descriptor.ToString(), Is.EqualTo("First;Second;Third;"));
+    }
+
+    [Test]
+    [Description("Test updating element in an existing index")]
+    public void SetElementAtExistingIndex()
+    {
+        var descriptor = new RakNetDescriptor();
+        descriptor.SetElement(0, "OldValue");
+        descriptor.SetElement(0, "NewValue");
+        
+        Assert.That(descriptor.ToString(), Is.EqualTo("NewValue;"));
+    }
+
+    [Test]
+    [Description("Test that two descriptor instances are equal if contain the same values")]
+    public void CompareObjectWithEqualValues()
+    {
+        var descriptor1 = new RakNetDescriptor();
+        descriptor1.SetElement(0, "Value1");
+        descriptor1.SetElement(1, "Value2");
+
+        var descriptor2 = new RakNetDescriptor();
+        descriptor2.SetElement(0, "Value1");
+        descriptor2.SetElement(1, "Value2");
+        
+        Assert.That(descriptor1, Is.EqualTo(descriptor2));
+    }
+
+    [Test]
+    [Description("Test that two descriptor instances are not equal if contain different values")]
+    public void CompareObjectWithNotEqualValues()
+    {
+        var descriptor1 = new RakNetDescriptor();
+        descriptor1.SetElement(0, "Value1");
+        
+        var descriptor2 = new RakNetDescriptor();
+        descriptor2.SetElement(0, "DifferentValue");
+        
+        Assert.That(descriptor1, !Is.EqualTo(descriptor2));
+    }
+
+    [Test]
+    [Description("Test that two descriptor instances generate the same hash if contain the same values")]
+    public void ProducesSameHashCode()
+    {
+        var descriptor1 = new RakNetDescriptor();
+        descriptor1.SetElement(0, "Value1");
+        descriptor1.SetElement(1, "Value2");
+
+        var descriptor2 = new RakNetDescriptor();
+        descriptor2.SetElement(0, "Value1");
+        descriptor2.SetElement(1, "Value2");
+        
+        Assert.That(descriptor1.GetHashCode(), Is.EqualTo(descriptor2.GetHashCode()));
+    }
+
+    [Test]
+    [Description("Test that two descriptor instances generate different hash if contain different values")]
+    public void ProducesDifferentHashCodes()
+    {
+        var descriptor1 = new RakNetDescriptor();
+        descriptor1.SetElement(0, "Value1");
+
+        var descriptor2 = new RakNetDescriptor();
+        descriptor2.SetElement(0, "DifferentValue");
+        
+        Assert.That(descriptor1.GetHashCode(), !Is.EqualTo(descriptor2.GetHashCode()));
     }
 }
