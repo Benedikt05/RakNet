@@ -39,9 +39,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.3'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dotnet-sdk-8.0
 
       - name: Restore RakNet Dependencies
         run: cd ${{ github.workspace }}/src/RakNet && dotnet restore
