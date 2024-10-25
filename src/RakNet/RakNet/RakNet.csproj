@@ -18,8 +18,4 @@
         <None Include="..\nuget-docs\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Descriptor\" />
-    </ItemGroup>
-
 </Project>
