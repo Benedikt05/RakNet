@@ -17,7 +17,7 @@ This balance makes RakNet especially suited for games, where network communicati
 The necessary documentation is available on the <a href="https://joseluishd.github.io/RakNet/">repository pages</a>. 
 Please refer to the respective sections for comprehensive details regarding the setup, usage, and contribution guidelines. 
 
-< [!WARNING]
+> [!WARNING]
 > This project is in development and is not yet ready for use.
 
 ## Contributing
