@@ -4,7 +4,19 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PackageId>RakNet</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>JoseLuisHD</Authors>
+        <Description>Simplified RakNet Implementation in C# for game networking</Description>
+        <PackageTags>networking;game-engine;raknet;multiplayer;udp;game-development;custom-protocols;game-server</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/JoseLuisHD/RakNet</RepositoryUrl>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\nuget-docs\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Descriptor\" />

@@ -1,9 +1,9 @@
 # RakNet 
-<a href="">
+<a href="https://www.nuget.org/packages/RakNet/">
     <img src="https://img.shields.io/badge/NuGet-004880?style=for-the-badge&logo=nuget&logoColor=white" alt="NuGET"/>
 </a>
 <a href="https://joseluishd.github.io/RakNet/">
-    <img src="https://img.shields.io/badge/Docs-4285F4?style=for-the-badge&logo=Google-chrome&logoColor=white" alt="Docs"/>
+    <img src="https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=GitHub%20Pages&logoColor=white" alt="GitHub Pages"/>
 </a>
 
 RakNet is a C# networking engine specifically designed for game development. It provides a reliable UDP-based protocol 
