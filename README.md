@@ -12,3 +12,13 @@ This balance makes RakNet especially suited for games, where network communicati
 
 > [!NOTE]
 > This is a simplified version based on the original <a href="https://github.com/facebookarchive/RakNet">RakNet</a> project.
+
+## Getting Started
+The necessary documentation is available on the <a href="https://joseluishd.github.io/RakNet/">repository pages</a>. 
+Please refer to the respective sections for comprehensive details regarding the setup, usage, and contribution guidelines. 
+
+< [!WARNING]
+> This project is in development and is not yet ready for use.
+
+## Contributing
+Contributions to this project are encouraged and appreciated. For detailed instructions on how to contribute, including coding standards and submission processes, please refer to the contribution guidelines available on the repository pages. Together, we can improve and expand this project!
