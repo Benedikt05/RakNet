@@ -113,4 +113,26 @@ public class RakNetDescriptorTests
         
         Assert.That(descriptor1.GetHashCode(), !Is.EqualTo(descriptor2.GetHashCode()));
     }
+
+    [Test]
+    [Description("Test adding element using indexer")]
+    public void AddElementUsingIndexer()
+    {
+        var descriptor = new RakNetDescriptor();
+        descriptor[0] = "Hello";
+        
+        Assert.That(descriptor.ToString(), Is.EqualTo("Hello;"));
+    }
+
+    [Test]
+    [Description("")]
+    public void UpdateAndGetWithIndexer()
+    {
+        var descriptor = new RakNetDescriptor();
+        descriptor += "Hello";
+        
+        descriptor[0] = "World";
+        
+        Assert.That(descriptor.ToString(), Is.EqualTo("World;"));
+    }
 }

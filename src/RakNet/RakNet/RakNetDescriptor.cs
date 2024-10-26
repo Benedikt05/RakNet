@@ -30,6 +30,29 @@ namespace RakNet;
 public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
 {
     private readonly Dictionary<int, string> _elements = new();
+
+    /// <summary>
+    /// Gets or sets the element at the specified index within the descriptor.
+    /// </summary>
+    /// <param name="index">The zero-based index of the element to get or set.</param>
+    /// <returns>The value at the specified index as a <see cref="string"/>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the index does not exist or the value is null.</exception>
+    public string this[int index]
+    {
+        get
+        {
+            if (_elements.TryGetValue(index, out var value))
+            {
+                return value;
+            }
+            throw new ArgumentNullException(nameof(index));
+        }
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            _elements[index] = value;
+        }
+    }
     
     /// <summary>
     /// Adds a new string element to the descriptor using the + operator.
@@ -51,9 +74,7 @@ public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
     /// <returns>True if both descriptors are equal; otherwise, false.</returns>
     public static bool operator ==(RakNetDescriptor left, RakNetDescriptor right)
     {
-        if (ReferenceEquals(left, right)) return true;
-        
-        return left.Equals(right);
+        return ReferenceEquals(left, right) || left.Equals(right);
     }
 
     /// <summary>
@@ -72,6 +93,7 @@ public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
     /// </summary>
     /// <param name="index">The index at which to set or update the element.</param>
     /// <param name="value">The value to set.</param>
+    /// <exception cref="ArgumentNullException">Thrown if the value is null.</exception>
     public void SetElement(int index, string value)
     {
         _elements[index] = value ?? throw new ArgumentNullException(nameof(value));
