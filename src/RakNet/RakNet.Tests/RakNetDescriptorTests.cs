@@ -118,14 +118,16 @@ public class RakNetDescriptorTests
     [Description("Test adding element using indexer")]
     public void AddElementUsingIndexer()
     {
-        var descriptor = new RakNetDescriptor();
-        descriptor[0] = "Hello";
-        
+        var descriptor = new RakNetDescriptor
+        {
+            [0] = "Hello"
+        };
+
         Assert.That(descriptor.ToString(), Is.EqualTo("Hello;"));
     }
 
     [Test]
-    [Description("")]
+    [Description("Test adding an element and updating it using indexer")]
     public void UpdateAndGetWithIndexer()
     {
         var descriptor = new RakNetDescriptor();
