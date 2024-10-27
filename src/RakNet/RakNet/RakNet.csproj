@@ -15,11 +15,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\nuget-docs\README.md" Pack="true" PackagePath="\"/>
+        <None Include="..\.nuget-docs\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Descriptor\" />
+      <PackageReference Include="NetCoreServer" Version="8.0.7" />
     </ItemGroup>
 
 </Project>
