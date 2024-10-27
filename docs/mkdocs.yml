@@ -25,6 +25,19 @@ repo_url: https://github.com/JoseLuisHD/RakNet
 copyright: Copyright &copy; JoseLuisHD
 plugins:
   - search
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: en
+          default: true
+          name: en - English
+          build: true
+        - locale: es
+          name: es - Español
+          build: true
+        - locale: de
+          name: de - Deutsch
+          build: true
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
