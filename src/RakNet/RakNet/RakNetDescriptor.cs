@@ -30,6 +30,12 @@ namespace RakNet;
 public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
 {
     private readonly Dictionary<int, string> _elements = new();
+    
+    /// <summary>
+    /// Gets the stats identifier for the server using metadata.
+    /// </summary>
+    /// <value>A <see cref="string"/> representing the server's stats identifier.</value>
+    public string ServerId { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the element at the specified index within the descriptor.
@@ -47,11 +53,7 @@ public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
             }
             throw new ArgumentNullException(nameof(index));
         }
-        set
-        {
-            ArgumentNullException.ThrowIfNull(value);
-            _elements[index] = value;
-        }
+        set => SetElement(index, value);
     }
     
     /// <summary>
@@ -97,6 +99,7 @@ public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
     public void SetElement(int index, string value)
     {
         _elements[index] = value ?? throw new ArgumentNullException(nameof(value));
+        ServerId = $"{string.Join(";", _elements.OrderBy(pair => pair.Key).Select(pair => pair.Value))};";
     }
     
     /// <summary>
@@ -105,7 +108,7 @@ public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
     /// <returns>A string representation of the descriptor.</returns>
     public override string ToString()
     {
-        return $"{string.Join(";", _elements.OrderBy(pair => pair.Key).Select(pair => pair.Value))};";
+        return ServerId;
     }
     
     /// <summary>

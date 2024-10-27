@@ -32,7 +32,7 @@ public class RakNetDescriptorTests
         var descriptor = new RakNetDescriptor();
         descriptor += "Hello";
         
-        Assert.That(descriptor.ToString(), Is.EqualTo("Hello;"));
+        Assert.That(descriptor.ServerId, Is.EqualTo("Hello;"));
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class RakNetDescriptorTests
         descriptor.SetElement(2, "Third");
         descriptor.SetElement(1, "Second");
         
-        Assert.That(descriptor.ToString(), Is.EqualTo("First;Second;Third;"));
+        Assert.That(descriptor.ServerId, Is.EqualTo("First;Second;Third;"));
     }
 
     [Test]
@@ -55,7 +55,7 @@ public class RakNetDescriptorTests
         descriptor.SetElement(0, "OldValue");
         descriptor.SetElement(0, "NewValue");
         
-        Assert.That(descriptor.ToString(), Is.EqualTo("NewValue;"));
+        Assert.That(descriptor.ServerId, Is.EqualTo("NewValue;"));
     }
 
     [Test]
@@ -123,7 +123,7 @@ public class RakNetDescriptorTests
             [0] = "Hello"
         };
 
-        Assert.That(descriptor.ToString(), Is.EqualTo("Hello;"));
+        Assert.That(descriptor.ServerId, Is.EqualTo("Hello;"));
     }
 
     [Test]
@@ -135,6 +135,6 @@ public class RakNetDescriptorTests
         
         descriptor[0] = "World";
         
-        Assert.That(descriptor.ToString(), Is.EqualTo("World;"));
+        Assert.That(descriptor.ServerId, Is.EqualTo("World;"));
     }
 }

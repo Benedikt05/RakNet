@@ -15,7 +15,7 @@ descriptor.SetElement(2, "Third");
 descriptor.SetElement(1, "Second");
 
 // output: First;Second;Third;
-Console.WriteLine(descriptor.ToString());
+Console.WriteLine(descriptor.ServerId);
 ```
 
 ## Using Operator
@@ -28,7 +28,7 @@ descriptor += "Second";
 descriptor += "Third";
 
 // output: First;Second;Third;
-Console.WriteLine(descriptor.ToString());
+Console.WriteLine(descriptor.ServerId);
 ```
 
 ## Using Array Indexer
@@ -43,7 +43,7 @@ var descriptor = new RakNetDescriptor
 };
 
 // output: Hello;World;
-Console.WriteLine(descriptor.ToString());
+Console.WriteLine(descriptor.ServerId);
 ```
 
 Update or retrieve an element at an index.
@@ -61,7 +61,7 @@ descriptor[1] = "RakNet";
 Console.WriteLine(descriptor[0]);
 
 // output: Hello;RakNet;
-Console.WriteLine(descriptor.ToString());
+Console.WriteLine(descriptor.ServerId);
 ```
 
 When attempting to access an element at an index that was not added during the class initialization or dynamically, 
