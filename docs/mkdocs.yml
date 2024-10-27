@@ -30,10 +30,13 @@ plugins:
       languages:
         - locale: en
           default: true
-          name: es - English
+          name: en - English
           build: true
         - locale: es
           name: es - Español
+          build: true
+        - locale: de
+          name: de - Deutsch
           build: true
 markdown_extensions:
   - pymdownx.highlight:
