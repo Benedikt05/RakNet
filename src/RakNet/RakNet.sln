@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RakNet", "RakNet\RakNet.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RakNet.Tests", "RakNet.Tests\RakNet.Tests.csproj", "{47615A6D-3868-43AD-B347-FF2429D1E238}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RakNet.Example", "RakNet.Example\RakNet.Example.csproj", "{28404C49-DD93-4F31-B2F4-6FDDB1D6228A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{47615A6D-3868-43AD-B347-FF2429D1E238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47615A6D-3868-43AD-B347-FF2429D1E238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47615A6D-3868-43AD-B347-FF2429D1E238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28404C49-DD93-4F31-B2F4-6FDDB1D6228A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28404C49-DD93-4F31-B2F4-6FDDB1D6228A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28404C49-DD93-4F31-B2F4-6FDDB1D6228A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28404C49-DD93-4F31-B2F4-6FDDB1D6228A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
