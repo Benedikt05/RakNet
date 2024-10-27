@@ -27,7 +27,7 @@ namespace RakNet;
 /// equality checks, element addition via '+' operator, and string conversion.
 /// The combined content is used as serverId in OfflinePong to display a status.
 /// </summary>
-public class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
+public sealed class RakNetDescriptor : IEqualityComparer<RakNetDescriptor>
 {
     private readonly Dictionary<int, string> _elements = new();
     

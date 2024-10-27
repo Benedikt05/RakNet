@@ -1,3 +1,5 @@
+## Overview
+
 During the offline sequence, a ping-pong exchange occurs between the client and the server. The pong response from the server 
 contains an element called ServerID, which corresponds to customizable metadata. This metadata provides statistical information 
 to the client, such as version, protocol, minimum-maximum players, etc.

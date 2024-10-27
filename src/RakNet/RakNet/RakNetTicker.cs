@@ -34,6 +34,7 @@ public sealed class RakNetTicker : IDisposable
     private readonly List<Task> _tasks = [];
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly ConcurrentQueue<RakNetServiceBase> _serviceQueue = new();
+    private readonly HashSet<RakNetServiceBase> _tickServices = [];
     
     private readonly int _updateInterval;
     private bool _disposed;
@@ -61,13 +62,46 @@ public sealed class RakNetTicker : IDisposable
     }
     
     /// <summary>
-    /// Registers a new RakNet service to be ticked periodically.
+    /// Registers a service to receive periodic updates.
+    /// This method adds the specified service to the update queue,
+    /// allowing it to be processed in the periodic task execution.
     /// </summary>
-    /// <param name="service">The RakNet service to register.</param>
-    public void TickService(RakNetServiceBase service)
+    /// <param name="service">The service to be registered.</param>
+    /// <exception cref="ObjectDisposedException">Thrown when the ticker has been disposed.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when attempting to register a service that is not running.</exception>
+    public void StartTickService(RakNetServiceBase service)
     {
         ObjectDisposedException.ThrowIf(_disposed, nameof(RakNetTicker));
+        
+        if (!service.Running) throw new InvalidOperationException("The service is not running.");
+        
         _serviceQueue.Enqueue(service);
+        _tickServices.Add(service);
+    }
+
+    /// <summary>
+    /// Unregisters a service from receiving periodic updates.
+    /// This method removes the specified service from the registered services
+    /// and ensures it no longer appears in the update queue.
+    /// </summary>
+    /// <param name="service">The service to be unregistered.</param>
+    /// <exception cref="ObjectDisposedException">Thrown when the ticker has been disposed.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when attempting to register a service that is running.</exception>
+    public void StopTickService(RakNetServiceBase service)
+    {
+        ObjectDisposedException.ThrowIf(_disposed, nameof(RakNetTicker));
+        
+        if (service.Running) throw new InvalidOperationException("The service is running.");
+        
+        _tickServices.Remove(service);
+        
+        var remainingServices = _serviceQueue.Where(queueService => _tickServices.Contains(queueService)).ToList();
+        
+        _serviceQueue.Clear();
+        foreach (var filterService in remainingServices)
+        {
+            _serviceQueue.Enqueue(filterService);
+        }
     }
     
     private async Task TaskWorkerAsync(CancellationToken cancellationToken)
@@ -99,6 +133,7 @@ public sealed class RakNetTicker : IDisposable
         Task.WhenAll(_tasks).Wait();
         _cancellationTokenSource.Dispose();
         _serviceQueue.Clear();
+        _tickServices.Clear();
         _tasks.Clear();
         _disposed = true;
     }

@@ -24,7 +24,7 @@ using System.Net;
 
 namespace RakNet;
 
-public class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
+public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
     protected override void Start()
     {

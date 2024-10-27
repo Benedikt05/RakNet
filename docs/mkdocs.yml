@@ -59,3 +59,4 @@ nav:
   - Home: index.md
   - API Docs:
       - RakNet Descriptor: api-docs/raknet-descriptor.md
+      - RakNet Ticker: api-docs/raknet-ticker.md
