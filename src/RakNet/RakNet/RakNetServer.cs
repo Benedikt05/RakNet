@@ -36,7 +36,7 @@ public class RakNetServer(IPAddress address, int port) : RakNetServiceBase(addre
         
     }
     
-    protected override Task UpdateAsync()
+    internal override Task UpdateAsync()
     {
         return Task.CompletedTask;
     }

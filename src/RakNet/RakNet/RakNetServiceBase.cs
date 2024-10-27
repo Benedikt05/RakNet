@@ -32,7 +32,7 @@ namespace RakNet;
 /// </summary>
 /// <param name="address">The IP address to which the service will bind.</param>
 /// <param name="port">The port number on which the service will listen.</param>
-public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetService, IDisposable
+public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetService
 {
     /// <summary>
     /// Specifies the IP address for the RakNet service to bind to.
@@ -49,8 +49,6 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     /// Tracks whether the service is currently running.
     /// </summary>
     public bool Running { get; private set; }
-    
-    private CancellationTokenSource? _cancellationTokenSource;
         
     /// <summary>
     /// Initiates the service start sequence.
@@ -59,12 +57,8 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     public void StartService()
     {
         if (Running) throw new InvalidOperationException("The service is already running.");
-
-        _cancellationTokenSource = new CancellationTokenSource();
-        Task.Run(() => UpdateTaskAsync(_cancellationTokenSource.Token));
         
         Start();
-        
         Running = true;
     }
 
@@ -76,43 +70,15 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     {
         if (!Running) throw new InvalidOperationException("The service is already stopped.");
         
-        _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource?.Dispose();
-        _cancellationTokenSource = null;
-        
         Stop();
-        
         Running = false;
     }
     
     protected abstract void Start();
     protected abstract void Stop();
     
-    private async Task UpdateTaskAsync(CancellationToken cancellationToken)
-    {
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            await UpdateAsync();
-            await Task.Delay(50, cancellationToken);
-        }
-    }
-    
-    protected virtual Task UpdateAsync()
+    internal virtual Task UpdateAsync()
     {
         return Task.CompletedTask;
-    }
-    
-    /// <summary>
-    /// Disposes of resources used by the service.
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        
     }
 }
