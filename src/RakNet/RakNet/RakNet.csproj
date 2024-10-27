@@ -15,11 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\nuget-docs\README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Descriptor\" />
+        <None Include="..\.nuget-docs\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
