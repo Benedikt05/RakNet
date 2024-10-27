@@ -29,14 +29,14 @@ namespace RakNet;
 public interface IRakNetService
 {
     /// <summary>
-    /// Initiates the service, setting up any necessary resources 
+    /// Start the service, setting up any necessary resources 
     /// or network connections.
     /// </summary>
-    public void Start();
+    public void StartService();
 
     /// <summary>
-    /// Shuts down the service, releasing resources and 
+    /// Stop the service, releasing resources and 
     /// closing network connections.
     /// </summary>
-    public void Shutdown();
+    public void StopService();
 }

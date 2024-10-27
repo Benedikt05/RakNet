@@ -7,7 +7,7 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-//
+// 
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
 // 
@@ -21,23 +21,25 @@
 #endregion
 
 using System.Net;
+using System.Net.Sockets;
+using NetCoreServer;
 
-namespace RakNet;
+namespace RakNet.Interface;
 
-public class RakNetClient(IPAddress address, int port) : RakNetServiceBase(address, port)
+internal class ServerInterface(IPAddress address, int port) : UdpServer(address, port)
 {
-    protected override void Start()
+    protected override void OnStarted()
     {
         
     }
 
-    protected override void Stop()
+    protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
     {
         
     }
 
-    protected override Task UpdateAsync()
+    protected override void OnError(SocketError error)
     {
-        return Task.CompletedTask;
+        
     }
 }

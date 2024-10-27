@@ -20,29 +20,24 @@
 // SOFTWARE.
 #endregion
 
+using System.Net;
+
 namespace RakNet;
 
-/// <summary>
-/// Implements the IRakNetService interface to manage 
-/// the RakNet server lifecycle, including startup and shutdown operations.
-/// </summary>
-public class RakNetServer : IRakNetService
+public class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
-    /// <summary>
-    /// Starts the RakNet server, initializing necessary resources
-    /// and preparing the server for incoming connections.
-    /// </summary>
-    public void Start()
+    protected override void Start()
     {
         
     }
 
-    /// <summary>
-    /// Shuts down the RakNet server, releasing resources 
-    /// and properly closing connections.
-    /// </summary>
-    public void Shutdown()
+    protected override void Stop()
     {
         
+    }
+    
+    protected override Task UpdateAsync()
+    {
+        return Task.CompletedTask;
     }
 }
