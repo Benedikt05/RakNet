@@ -7,9 +7,9 @@ to the client, such as version, protocol, minimum-maximum players, etc.
 RakNetDescriptor is a class that enables managing this metadata and is later used to construct the pong response.
 
 ## Basic Example
-RakNetDescriptor functions as an array using numeric index to organize the elements. 
+```RakNetDescriptor``` functions as an array using numeric index to organize the elements. 
 
-The ToString() method returns a string with all elements separated by ';' which is the ServerID
+The ```ToString()``` method returns a string with all elements separated by ';' which is the ServerID
 ```csharp
 var descriptor = new RakNetDescriptor();
 descriptor.SetElement(0, "First");
@@ -21,8 +21,8 @@ Console.WriteLine(descriptor.ServerId);
 ```
 
 ## Using Operator
-As seen in the previous example, setElement can be used to add elements; however, RakNetDescriptor also offers the option 
-to do the same using the '+' operator.
+As seen in the previous example, ```setElement``` can be used to add elements; however, RakNetDescriptor also offers the option 
+to do the same using the ```+``` operator.
 ```csharp
 var descriptor = new RakNetDescriptor();
 descriptor += "First"; 
@@ -67,7 +67,7 @@ Console.WriteLine(descriptor.ServerId);
 ```
 
 When attempting to access an element at an index that was not added during the class initialization or dynamically, 
-an ArgumentNullException will be obtained.
+an ```ArgumentNullException``` will be obtained.
 ```csharp
 var descriptor = new RakNetDescriptor
 {

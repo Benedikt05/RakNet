@@ -16,10 +16,10 @@ Implementing RakNetTicker simplifies the design of the networking components. De
 RakNetServer or RakNetClient implementations without having to worry about the intricacies of task scheduling and execution.
 
 ## Examples of Initiation
-All services such as RakNetServer or RakNetClient need to register with a RakNetTicker to update connections and handle 
+All services such as ```RakNetServer``` or ```RakNetClient``` need to register with a RakNetTicker to update connections and handle 
 packets sequences.
 
-An instance of RakNetTicker can be created with default parameters. This instance would use a single worker task and be updated every 20 ms.
+An instance of ```RakNetTicker``` can be created with default parameters. This instance would use a single worker task and be updated every 20 ms.
 ```csharp
 var ticker = new RakNetTicker();
 ```
@@ -39,27 +39,27 @@ It is also possible to set both parameters in the constructor.
 var ticker = new RakNetTicker(2, 50); // workers task, time in ms
 ```
 
-ArgumentOutOfRangeException exception will be thrown if the parameters passed in the constructor are below the minimum values:
+```ArgumentOutOfRangeException``` exception will be thrown if the parameters passed in the constructor are below the minimum values:
 
 - parallelTasks: 1
 - updateInterval: 20
 
 ## Updates in Services
 To instruct RakNetTicker to start performing updates on an service, it is sufficient to provide the service.
-The service needs to be running before registering it or you might get an InvalidOperationException.
+The service needs to be running before registering it or you might get an ```InvalidOperationException```.
 ```csharp
 ticker.StartTickService(raknetServer);
 ```
 
 To instruct RakNetTicker to stop updates on an service, it is sufficient to provide the service.
-The service needs to be stopped before unregistering it, or you might get an InvalidOperationException.
+The service needs to be stopped before unregistering it, or you might get an ```InvalidOperationException```.
 ```csharp
 ticker.StopTickService(raknetServer);
 ```
 
 ## Cleaning Resources
 To terminate the execution of RakNetTicker, it is important to first remove all services from the ticker to avoid synchronization 
-issues when closing the service connections. Once this is done, it is sufficient to call Dispose.
+issues when closing the service connections. Once this is done, it is sufficient to call ```Dispose```.
 ```csharp
 ticker.Dispose();
 ```
