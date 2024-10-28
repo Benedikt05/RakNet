@@ -22,13 +22,21 @@
 
 namespace RakNet.Binary;
 
+/// <summary>
+/// Specifies the encoding format for binary data representation in memory.
+/// Determines the byte order (endianness) of multibyte values when read or written.
+/// </summary
 internal enum BinaryEncoding
 {
     LittleEndian,
     BigEndian,
 }
 
-internal static class BinaryHelper
+/// <summary>
+/// Provides constants representing the binary size (in bytes) of various integer types.
+/// Useful for determining fixed byte lengths in binary data processing.
+/// </summary>
+internal static class BinaryDataSize
 {
     public const int Int8BinarySize = 1;
     public const int Int16BinarySize = 2;

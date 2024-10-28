@@ -26,6 +26,12 @@ using NetCoreServer;
 
 namespace RakNet.Interface;
 
+/// <summary>
+/// Represents a server interface for UDP communication, initialized with a specific IP address and port.
+/// Extends <see cref="NetCoreServer.UdpServer"/> to manage UDP-based network interactions on the server side.
+/// </summary>
+/// <param name="address">The IP address on which the server will listen.</param>
+/// <param name="port">The port number on which the server will listen.</param>
 internal class ServerInterface(IPAddress address, int port) : UdpServer(address, port)
 {
     protected override void OnStarted()

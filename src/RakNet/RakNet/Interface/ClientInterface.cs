@@ -26,6 +26,12 @@ using UdpClient = NetCoreServer.UdpClient;
 
 namespace RakNet.Interface;
 
+/// <summary>
+/// Represents a client interface for UDP communication, initialized with a specific IP address and port.
+/// Extends <see cref="NetCoreServer.UdpClient"/> to facilitate network interactions in a UDP-based client application.
+/// </summary>
+/// <param name="address">The IP address of the remote endpoint.</param>
+/// <param name="port">The port number of the remote endpoint.</param>
 internal class ClientInterface(IPAddress address, int port) : UdpClient(address, port)
 {
     protected override void OnConnected()
