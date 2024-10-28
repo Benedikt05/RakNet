@@ -25,6 +25,13 @@ using RakNet.Interface;
 
 namespace RakNet;
 
+/// <summary>
+/// Represents a RakNet server for managing network communications. Initializes a new instance 
+/// of the <see cref="RakNetServer"/> class with the specified IP address and port.
+/// Inherits from <see cref="RakNetServiceBase"/>.
+/// </summary>
+/// <param name="address">The IP address where the server will listen for connections.</param>
+/// <param name="port">The port number on which the server will accept connections.</param>
 public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
     /// <summary>
