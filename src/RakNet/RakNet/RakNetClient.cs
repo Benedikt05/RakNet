@@ -21,19 +21,24 @@
 #endregion
 
 using System.Net;
+using RakNet.Interface;
 
 namespace RakNet;
 
 public sealed class RakNetClient(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
+    private ClientInterface? _interface;
+    
     protected override void Start()
     {
-        
+        _interface ??= new ClientInterface(Address, Port);
+        if (!_interface.Connect()) throw new InvalidOperationException("Failed to start RakNetClient.");
     }
 
     protected override void Stop()
     {
-        
+        _interface?.Disconnect();
+        _interface = null;
     }
 
     internal override Task UpdateAsync()

@@ -21,19 +21,32 @@
 #endregion
 
 using System.Net;
+using RakNet.Interface;
 
 namespace RakNet;
 
 public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
+    /// <summary>
+    /// Gets or sets the `RakNetDescriptor` instance, which provides detailed metadata descriptions 
+    /// and configuration for offline pong.
+    /// </summary>
+    public RakNetDescriptor? Descriptor { get; set; }
+    
+    private ServerInterface? _interface;
+    
     protected override void Start()
     {
+        ArgumentNullException.ThrowIfNull(Descriptor);
         
+        _interface ??= new ServerInterface(Address, Port);
+        if (!_interface.Start()) throw new InvalidOperationException("Failed to start RakNetServer.");
     }
 
     protected override void Stop()
     {
-        
+        _interface?.Stop();
+        _interface = null;
     }
     
     internal override Task UpdateAsync()

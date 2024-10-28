@@ -57,6 +57,7 @@ public class RakNetServerExample(ILogger<RakNetServerExample> logger) : IHostedS
         };
 
         _server ??= new RakNetServer(IPAddress.Any, 19132);
+        _server.Descriptor = _descriptor;
         _server.StartService();
         
         _ticker.StartTickService(_server);

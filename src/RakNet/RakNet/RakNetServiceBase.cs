@@ -38,12 +38,12 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     /// Specifies the IP address for the RakNet service to bind to.
     /// This property is initialized at object construction and is immutable thereafter.
     /// </summary>
-    public IPAddress Address { get; init; } = address;
+    public IPAddress Address { get; } = address;
     /// <summary>
     /// Specifies the port on which the RakNet service will listen.
     /// This property is initialized at object construction and is immutable thereafter.
     /// </summary>
-    public int Port { get; init; } = port;
+    public int Port { get; } = port;
     
     /// <summary>
     /// Tracks whether the service is currently running.
@@ -54,6 +54,8 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     /// Initiates the service start sequence.
     /// </summary>
     /// <exception cref="InvalidOperationException">Thrown when StartService is invoked and the service is already running.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when failed to start service.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when any argument requested by a service is null.</exception>
     public void StartService()
     {
         if (Running) throw new InvalidOperationException("The service is already running.");

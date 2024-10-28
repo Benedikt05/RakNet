@@ -23,6 +23,7 @@
 using System.Net;
 using System.Net.Sockets;
 using NetCoreServer;
+using Buffer = System.Buffer;
 
 namespace RakNet.Interface;
 
@@ -36,12 +37,13 @@ internal class ServerInterface(IPAddress address, int port) : UdpServer(address,
 {
     protected override void OnStarted()
     {
-        
+        ReceiveAsync();
     }
 
     protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
     {
-        
+        var data = new byte[size];
+        Buffer.BlockCopy(buffer, (int)offset, data, 0, (int)size);
     }
 
     protected override void OnError(SocketError error)
