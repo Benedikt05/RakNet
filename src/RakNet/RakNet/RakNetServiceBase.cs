@@ -38,12 +38,16 @@ public abstract class RakNetServiceBase(IPAddress address, int port) : IRakNetSe
     /// Specifies the IP address for the RakNet service to bind to.
     /// This property is initialized at object construction and is immutable thereafter.
     /// </summary>
-    public IPAddress Address { get; } = address;
+    public readonly IPAddress Address = address;
     /// <summary>
     /// Specifies the port on which the RakNet service will listen.
     /// This property is initialized at object construction and is immutable thereafter.
     /// </summary>
-    public int Port { get; } = port;
+    public readonly int Port = port;
+    /// <summary>
+    /// A unique identifier for the instance.Used to uniquely identify each instance within the RakNet.
+    /// </summary>
+    public readonly long Guid = RakNetConst.GenerateGuid();
     
     /// <summary>
     /// Tracks whether the service is currently running.

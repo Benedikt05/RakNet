@@ -20,7 +20,9 @@
 // SOFTWARE.
 #endregion
 
+using System.Collections.Concurrent;
 using System.Net;
+using System.Net.Sockets;
 using RakNet.Interface;
 
 namespace RakNet;
@@ -34,13 +36,19 @@ namespace RakNet;
 /// <param name="port">The port number on which the server will accept connections.</param>
 public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBase(address, port)
 {
+    private ServerInterface? _interface;
+    private readonly ConcurrentDictionary<EndPoint, Object> _sessions = new();
+    
     /// <summary>
     /// Gets or sets the `RakNetDescriptor` instance, which provides detailed metadata descriptions 
     /// and configuration for offline pong.
     /// </summary>
     public RakNetDescriptor? Descriptor { get; set; }
-    
-    private ServerInterface? _interface;
+    /// <summary>
+    /// Provides a read-only view of the active sessions, mapping each <see cref="EndPoint"/> to an associated session object.
+    /// External code can access session data but cannot modify the collection.
+    /// </summary>
+    public IReadOnlyDictionary<EndPoint, object> Sessions => _sessions;
     
     protected override void Start()
     {
@@ -48,6 +56,9 @@ public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBas
         
         _interface ??= new ServerInterface(Address, Port);
         if (!_interface.Start()) throw new InvalidOperationException("Failed to start RakNetServer.");
+
+        _interface.ReceiveBufferEvent += HandleReceiveBufferEvent;
+        _interface.ErrorEvent += HandleErrorEvent;
     }
 
     protected override void Stop()
@@ -59,5 +70,38 @@ public sealed class RakNetServer(IPAddress address, int port) : RakNetServiceBas
     internal override Task UpdateAsync()
     {
         return Task.CompletedTask;
+    }
+
+    private void HandleReceiveBufferEvent(object? sender, (EndPoint, byte[]) data)
+    {
+        var endpoint = data.Item1;
+        ReadOnlySpan<byte> buffer = data.Item2;
+        
+        // When the client is not yet connected, the offline and handshake sequences are handled.
+        if (!_sessions.ContainsKey(endpoint))
+        {
+            var id = buffer[0];
+            switch (id)
+            {
+                case RakNetConst.UnconnectedPingId:
+                   Console.WriteLine("OfflinePing");
+                    break;
+                case RakNetConst.OpenConnectionRequest1Id:
+                    Console.WriteLine("OpenConnectionRequest1");
+                    break;
+                case RakNetConst.OpenConnectionRequest2Id:
+                    Console.WriteLine("OpenConnectionRequest2");
+                    break;
+            }
+        }
+        else // Once the client is considered connected, packets are handled by the session
+        {
+            _sessions.TryGetValue(endpoint, out var client);
+        }
+    }
+
+    private void HandleErrorEvent(object? sender, SocketError error)
+    {
+        
     }
 }

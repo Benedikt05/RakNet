@@ -32,7 +32,7 @@ namespace RakNet.Interface;
 /// </summary>
 /// <param name="address">The IP address of the remote endpoint.</param>
 /// <param name="port">The port number of the remote endpoint.</param>
-internal class ClientInterface(IPAddress address, int port) : UdpClient(address, port)
+internal sealed class ClientInterface(IPAddress address, int port) : UdpClient(address, port)
 {
     protected override void OnConnected()
     {

@@ -33,8 +33,11 @@ namespace RakNet.Interface;
 /// </summary>
 /// <param name="address">The IP address on which the server will listen.</param>
 /// <param name="port">The port number on which the server will listen.</param>
-internal class ServerInterface(IPAddress address, int port) : UdpServer(address, port)
+internal sealed class ServerInterface(IPAddress address, int port) : UdpServer(address, port)
 {
+    public event EventHandler<(EndPoint, byte[])>? ReceiveBufferEvent;
+    public event EventHandler<SocketError>? ErrorEvent;
+    
     protected override void OnStarted()
     {
         ReceiveAsync();
@@ -42,12 +45,26 @@ internal class ServerInterface(IPAddress address, int port) : UdpServer(address,
 
     protected override void OnReceived(EndPoint endpoint, byte[] buffer, long offset, long size)
     {
+        if (size == 0)
+        {
+            // Continue listening for new messages async.
+            ReceiveAsync();
+            return;
+        }
+        
+        // The buffer can sometimes be larger than it actually contains valid bytes.
+        // Only process valid bytes using offset and size as a guide.
         var data = new byte[size];
         Buffer.BlockCopy(buffer, (int)offset, data, 0, (int)size);
+        
+        ReceiveBufferEvent?.Invoke(this, (endpoint, data));
+        
+        // Continue listening for new messages async.
+        ReceiveAsync();
     }
 
     protected override void OnError(SocketError error)
     {
-        
+        ErrorEvent?.Invoke(this, error);
     }
 }

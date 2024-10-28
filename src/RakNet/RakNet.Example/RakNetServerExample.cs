@@ -41,22 +41,22 @@ public class RakNetServerExample(ILogger<RakNetServerExample> logger) : IHostedS
     public Task StartAsync(CancellationToken cancellationToken)
     {
         _ticker ??= new RakNetTicker(updateInterval: 50);
+        _server ??= new RakNetServer(IPAddress.Any, 19132);
         _descriptor ??= new RakNetDescriptor
         {
             [0] = "MCPE", // Edition
             [1] = "RakNet Server Example", // Motd Title
-            [2] = "390", // Game Protocol
-            [3] = "1.14.60", // Game Version
+            [2] = "729", // Game Protocol
+            [3] = "1.21.30", // Game Version
             [4] = "0", // Current Playing
             [5] = "100", // Max Players
-            [6] = "13253860892328930865", // Server Guid
+            [6] = _server.Guid.ToString(), // Server Guid
             [7] = "Test RakNet Lib", // Motd Subtitle
             [8] = "Survival", // Game mode
             [9] = "1", // Game mode id
             [10] = "19132" // Server port
         };
-
-        _server ??= new RakNetServer(IPAddress.Any, 19132);
+        
         _server.Descriptor = _descriptor;
         _server.StartService();
         
