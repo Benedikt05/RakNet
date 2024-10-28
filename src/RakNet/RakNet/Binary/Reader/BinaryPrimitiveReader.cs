@@ -48,7 +48,7 @@ internal static class BinaryPrimitiveReader
         {
             BinaryEncoding.LittleEndian => (short)(buffer[position++] & 0xFF | (buffer[position++] & 0xFF) << 8),
             BinaryEncoding.BigEndian => (short) ((buffer[position++] & 0xFF) << 8 | buffer[position++] & 0xFF),
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
 
@@ -56,9 +56,9 @@ internal static class BinaryPrimitiveReader
     {
         return encoding switch
         {
-            BinaryEncoding.LittleEndian => (ushort)(ReadInt16(BinaryEncoding.LittleEndian, ref position, buffer) & 0xFFFF),
-            BinaryEncoding.BigEndian => (ushort)(ReadInt16(BinaryEncoding.BigEndian, ref position, buffer) & 0xFFFF),
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            BinaryEncoding.LittleEndian => (ushort)(ReadInt16(BinaryEncoding.LittleEndian, ref position, buffer) & short.MaxValue),
+            BinaryEncoding.BigEndian => (ushort)(ReadInt16(BinaryEncoding.BigEndian, ref position, buffer) & short.MaxValue),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
     
@@ -72,7 +72,7 @@ internal static class BinaryPrimitiveReader
                                            (buffer[position++] & 0xFF) << 16 | (buffer[position++] & 0xFF) << 24,
             BinaryEncoding.BigEndian => (buffer[position++] & 0xFF) << 24 | (buffer[position++] & 0xFF) << 16 | 
                                         (buffer[position++] & 0xFF) << 8  | buffer[position++] & 0xFF,
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
 
@@ -80,9 +80,9 @@ internal static class BinaryPrimitiveReader
     {
         return encoding switch
         {
-            BinaryEncoding.LittleEndian => (uint)(ReadInt32(BinaryEncoding.LittleEndian, ref position, buffer) & 0xFFFFFFFF),
-            BinaryEncoding.BigEndian => (uint)(ReadInt32(BinaryEncoding.BigEndian, ref position, buffer) & 0xFFFFFFFF),
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            BinaryEncoding.LittleEndian => (uint)(ReadInt32(BinaryEncoding.LittleEndian, ref position, buffer) & int.MaxValue),
+            BinaryEncoding.BigEndian => (uint)(ReadInt32(BinaryEncoding.BigEndian, ref position, buffer) & int.MaxValue),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
     
@@ -100,7 +100,7 @@ internal static class BinaryPrimitiveReader
                                         (long)(buffer[position++] & 0xFF) << 40 | (long)(buffer[position++] & 0xFF) << 32 | 
                                         (long)(buffer[position++] & 0xFF) << 24 | (long)(buffer[position++] & 0xFF) << 16 | 
                                         (long)(buffer[position++] & 0xFF) << 8  | (long)buffer[position++] & 0xFF,
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
 
@@ -108,9 +108,9 @@ internal static class BinaryPrimitiveReader
     {
         return encoding switch
         {
-            BinaryEncoding.LittleEndian => (ulong)(ReadInt64(BinaryEncoding.LittleEndian, ref position, buffer) & 0x7FFFFFFFFFFFFFFF),
-            BinaryEncoding.BigEndian => (ulong)(ReadInt64(BinaryEncoding.BigEndian, ref position, buffer) & 0x7FFFFFFFFFFFFFFF),
-            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}"),
+            BinaryEncoding.LittleEndian => (ulong)(ReadInt64(BinaryEncoding.LittleEndian, ref position, buffer) & long.MaxValue),
+            BinaryEncoding.BigEndian => (ulong)(ReadInt64(BinaryEncoding.BigEndian, ref position, buffer) & long.MaxValue),
+            _ => throw new InvalidDataException($"Unexpected BinaryEncoding value {encoding.ToString()}")
         };
     }
 }
