@@ -19,7 +19,7 @@ Console.WriteLine(descriptor.ServerId);
 ```
 
 ## Verwendung des Operators
-Wie im vorherigen Beispiel zu sehen, kann SetElement verwendet werden, um Elemente hinzuzufügen. RakNetDescriptor bietet jedoch auch die Möglichkeit, dasselbe mithilfe des +-Operators zu tun.
+Wie im vorherigen Beispiel zu sehen, kann ```SetElement``` verwendet werden, um Elemente hinzuzufügen. RakNetDescriptor bietet jedoch auch die Möglichkeit, dasselbe mithilfe des +-Operators zu tun.
 ```csharp
 var descriptor = new RakNetDescriptor();
 descriptor += "First"; 
