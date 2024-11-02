@@ -1,15 +1,13 @@
-## Overview
+## Übersicht
+Während der Offline-Sequenz erfolgt ein Ping-Pong-Austausch zwischen dem Client und dem Server. Die Pong-Antwort des Servers enthält ein Element namens ServerID, das anpassbaren Metadaten entspricht. Diese Metadaten bieten dem Client statistische Informationen, wie etwa Version, Protokoll, Mindest-Maximalspieler usw.
 
-During the offline sequence, a ping-pong exchange occurs between the client and the server. The pong response from the server 
-contains an element called ServerID, which corresponds to customizable metadata. This metadata provides statistical information 
-to the client, such as version, protocol, minimum-maximum players, etc.
+Die Klasse RakNetDescriptor ermöglicht die Verwaltung dieser Metadaten und wird später verwendet, um die Pong-Antwort zu erstellen.
 
-RakNetDescriptor is a class that enables managing this metadata and is later used to construct the pong response.
+## Einfaches Beispiel
+```RakNetDescriptor``` funktioniert als ein Array, das die Elemente über numerische Indizes organisiert.
 
-## Basic Example
-```RakNetDescriptor``` functions as an array using numeric index to organize the elements. 
 
-The ```ToString()``` method returns a string with all elements separated by ';' which is the ServerID
+Die ```ToString()``` Methode gibt einen String mit allen Elementen zurück, die durch ";" getrennt sind, und bildet so die ServerID.
 ```csharp
 var descriptor = new RakNetDescriptor();
 descriptor.SetElement(0, "First");
@@ -20,9 +18,8 @@ descriptor.SetElement(1, "Second");
 Console.WriteLine(descriptor.ServerId);
 ```
 
-## Using Operator
-As seen in the previous example, ```setElement``` can be used to add elements; however, RakNetDescriptor also offers the option 
-to do the same using the ```+``` operator.
+## Verwendung des Operators
+Wie im vorherigen Beispiel zu sehen, kann SetElement verwendet werden, um Elemente hinzuzufügen. RakNetDescriptor bietet jedoch auch die Möglichkeit, dasselbe mithilfe des +-Operators zu tun.
 ```csharp
 var descriptor = new RakNetDescriptor();
 descriptor += "First"; 
@@ -33,10 +30,10 @@ descriptor += "Third";
 Console.WriteLine(descriptor.ServerId);
 ```
 
-## Using Array Indexer
-In addition to the two previous options, RakNetDescriptor has the ability to use the array indexer.
+## Verwendung des Array-Indexers
+Zusätzlich zu den zwei vorherigen Optionen, hat RakNetDescriptor die Fähigkeit, den Array-Indexer zu verwenden.
 
-Initialize an instance of RakNetDescriptor with initial data.
+Initialisiere eine RakNetDescriptor Instanz mit initialen Daten.
 ```csharp
 var descriptor = new RakNetDescriptor
 {
@@ -47,8 +44,7 @@ var descriptor = new RakNetDescriptor
 // output: Hello;World;
 Console.WriteLine(descriptor.ServerId);
 ```
-
-Update or retrieve an element at an index.
+Aktualisieren oder Abrufen eines Elements an einem Index.
 ```csharp
 var descriptor = new RakNetDescriptor
 {
@@ -65,9 +61,8 @@ Console.WriteLine(descriptor[0]);
 // output: Hello;RakNet;
 Console.WriteLine(descriptor.ServerId);
 ```
+Beim Versuch, auf ein Element an einem Index zuzugreifen, das weder bei der Initialisierung der Klasse noch dynamisch hinzugefügt wurde, wird eine ```ArgumentNullException``` ausgelöst.
 
-When attempting to access an element at an index that was not added during the class initialization or dynamically, 
-an ```ArgumentNullException``` will be obtained.
 ```csharp
 var descriptor = new RakNetDescriptor
 {
